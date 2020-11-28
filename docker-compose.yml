@@ -1,0 +1,43 @@
+version: '3.4'
+networks:
+  internal_network:
+services:
+  web:
+    build: ./HTTPSERV/
+    ports:
+      - 8080:8080
+    networks: 
+      - internal_network
+    volumes:
+      - ./:/usr/data
+  rabbit:
+    image: rabbitmq
+    networks:
+      - internal_network
+  obse:
+    build: ./OBSE/
+    networks: 
+      - internal_network
+    depends_on: 
+      - rabbit
+    volumes:
+      - ./:/usr/data
+    restart: always
+  imed:
+    build: ./IMED/
+    networks: 
+      - internal_network
+    depends_on: 
+      - rabbit
+      - obse
+    restart: always
+  orig:
+    build: ./ORIG/
+    networks: 
+      - internal_network
+    restart: always
+    depends_on: 
+      - web
+      - rabbit
+      - obse
+      - imed
