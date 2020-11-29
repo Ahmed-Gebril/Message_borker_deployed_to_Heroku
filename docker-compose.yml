@@ -54,3 +54,10 @@ services:
       - obse
       - imed
       - orig
+  redis:
+    image: redis
+    networks:
+      - internal_network
+    depends_on: 
+      - web
+      - apigateway
