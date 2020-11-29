@@ -41,7 +41,7 @@ services:
       - rabbit
       - obse
       - imed
-    apigateway:
+  apigateway:
     build: ./APIGATEWAY/
     ports:
       - 8081:8081
