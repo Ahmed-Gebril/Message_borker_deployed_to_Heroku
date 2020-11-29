@@ -23,6 +23,13 @@ def test_get_messages_endpoint(test_client):
     """
     response = test_client.get('/api/messages')
     assert response.status_code == 200
+        
+    #test for log file present
+    if len(response.data) > 0:
+        assert b'Topic' in response.data
+    else:
+        #log file isn't present. response is empty
+        assert b'' == response.data
 
 def test_put_state_endpoint(test_client):
     """
