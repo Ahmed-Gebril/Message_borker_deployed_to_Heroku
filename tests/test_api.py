@@ -62,4 +62,4 @@ def test_put_state_endpoint_without_payload(test_client):
         Checks for a 401 status code when a PUT request is send over '/api/state without payload
     """
     response = test_client.put('/api/state')
-    assert response.status_code == 401
+    assert response.status_code == 400
