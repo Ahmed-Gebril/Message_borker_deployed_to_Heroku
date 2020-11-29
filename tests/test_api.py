@@ -2,8 +2,10 @@ import sys
 #only 'tests' module is present in sys path for package lookup
 #adding outer level to import from root  folder.
 sys.path.append('..')
-from APIGATEWAY import apigateway
+import apigateway
 import pytest
+import json
+
 
 #creating a test_client fixture to test the api gateway.
 @pytest.fixture
