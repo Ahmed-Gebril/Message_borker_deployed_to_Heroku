@@ -2,11 +2,8 @@ import sys
 #only 'tests' module is present in sys path for package lookup
 #adding outer level to import from root  folder.
 sys.path.append('..')
-import apigateway
+from APIGATEWAY import apigateway
 import pytest
-import json
-
-
 
 #creating a test_client fixture to test the api gateway.
 @pytest.fixture
@@ -24,10 +21,24 @@ def test_get_messages_endpoint(test_client):
     """
     response = test_client.get('/api/messages')
     assert response.status_code == 200
-    
-    #test for log file present
-    if len(response.data) > 0:
-        assert b'Topic' in response.data
-    else:
-        #log file isn't present. response is empty
-        assert b'' == response.data
+
+def test_put_state_endpoint(test_client):
+    """
+        Checks for a 200 status code when a PUT request is send over '/api/state
+    """
+    response = test_client.put('/api/state')
+    assert response.status_code == 200
+
+def test_get_state_endpoint(test_client):
+    """
+         Checks for a 200 status code when a GET request is send over '/api/state
+    """
+    response = test_client.get('/api/state')
+    assert response.status_code == 200
+
+def test_get_run_log_endpoint(test_client):
+    """
+        Checks for a 200 status code when a GET request is send over '/api/run-log
+    """
+    response = test_client.get('/api/run-log')
+    assert response.status_code == 200
