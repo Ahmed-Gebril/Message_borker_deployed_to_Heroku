@@ -9,11 +9,13 @@ services:
     networks: 
       - internal_network
     volumes:
-      - ./:/usr/data
+      - ~/message-broker:/data/app
   rabbit:
-    image: rabbitmq
+    image: rabbitmq:3-management
     networks:
       - internal_network
+    ports: 
+      - 15672:15672
   obse:
     build: ./OBSE/
     networks: 
@@ -21,7 +23,7 @@ services:
     depends_on: 
       - rabbit
     volumes:
-      - ./:/usr/data
+      - ~/message-broker:/data/app
     restart: always
   imed:
     build: ./IMED/
@@ -41,6 +43,7 @@ services:
       - rabbit
       - obse
       - imed
+
   apigateway:
     build: ./APIGATEWAY/
     ports:
@@ -54,10 +57,12 @@ services:
       - obse
       - imed
       - orig
+  
   redis:
     image: redis
     networks:
       - internal_network
     depends_on: 
       - web
-      - apigateway
+    ports:
+      - 6379:6379
