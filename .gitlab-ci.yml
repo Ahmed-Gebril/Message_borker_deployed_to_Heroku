@@ -21,12 +21,14 @@ build:
         - docker image  prune -f
         - docker-compose -f docker-compose.yml build --no-cache
         - docker-compose -f docker-compose.yml up -d
+        - cd APIGATEWAY && gunicorn --bind 0.0.0.0:8081 --timeout 120 apigateway:api &
  
 test:
     stage: test
     script:
         - docker-compose -f docker-compose.yml build --no-cache
         - docker-compose -f docker-compose.yml up -d
+        - cd APIGATEWAY && gunicorn --bind 0.0.0.0:8081 --timeout 120 apigateway:api &
         - docker network inspect message-broker-deployed-to-heroku_internal_network
         - docker ps
         - cd  tests
