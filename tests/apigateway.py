@@ -12,3 +12,5 @@ def get_messages():
 	response = requests.get('http://172.19.0.1:8080/')
 	return response.content,response.status_code,response.headers.items()
 
+if __name__ == "__main__":
+	api.run()
