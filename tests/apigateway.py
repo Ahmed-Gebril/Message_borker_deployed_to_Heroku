@@ -6,11 +6,11 @@ import json
 import datetime
 import time
 api = Flask(__name__)
+redis_client =  redis.Redis(host='172.19.0.1', port=6379, decode_responses=True)
 
-redis_client =  redis.Redis(host='host.docker.internal', port=6379, decode_responses=True)
 @api.route('/api/messages',methods=['GET'])
 def get_messages():
-	response = requests.get('http://host.docker.internal:8080/')
+	response = requests.get('http://172.19.0.1:8080/')
 	return response.content,response.status_code,response.headers.items()
 
 @api.route('/api/state',methods=['PUT'])
@@ -43,7 +43,7 @@ def get_run_log():
 
 @api.route('/api/node-statistic',methods=['GET'])
 def get_node_statistic():
-	NODE_API = 'http://host.docker.internal:15672/api/nodes'
+	NODE_API = 'http://172.19.0.1:15672/api/nodes'
 	json_response = requests.get(NODE_API,auth=('guest','guest')).json()[0]
 	return jsonify({
 		'disk_free':json_response.get('disk_free',None),
@@ -54,8 +54,8 @@ def get_node_statistic():
 	})
 @api.route('/api/queue-statistic',methods=['GET'])
 def get_queue_statistic():
-	QUEUE_API = 'http://host.docker.internal:15672/api/queues?msg_rates_age=3600'
-	QUEUE_MESSAGE_API = 'http://host.docker.internal:15672/api/queues/%2F/{}/get'
+	QUEUE_API = 'http://172.19.0.1:15672/api/queues?msg_rates_age=3600'
+	QUEUE_MESSAGE_API = 'http://172.19.0.1:15672/api/queues/%2F/{}/get'
 
 	delivered_message_payload = json.dumps({"count":-1,"ackmode":"ack_requeue_false","encoding":"auto","truncate":50000})
 	published_message_payload = json.dumps({"count":100000,"ackmode":"ack_requeue_true","encoding":"auto","truncate":50000})
