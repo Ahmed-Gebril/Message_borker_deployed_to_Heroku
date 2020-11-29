@@ -38,12 +38,6 @@ def test_put_state_endpoint(test_client):
     response = test_client.put('/api/state')
     assert response.status_code == 200
 
-def test_get_state_endpoint(test_client):
-    """
-         Checks for a 200 status code when a GET request is send over '/api/state
-    """
-    response = test_client.get('/api/state')
-    assert response.status_code == 200
 
 def test_get_run_log_endpoint(test_client):
     """
