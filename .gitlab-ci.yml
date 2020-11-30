@@ -65,4 +65,4 @@ staging:
      - apk add --update ruby-dev
      - gem install dpl
      - apk add --no-cache ruby-json 
-     - dpl --provider=heroku --app=devopsprojectowrk --api-key=$HEROKU_STAGING_API_KEY
+     - dpl --provider=heroku --app=devopsprojectowork --api-key=$HEROKU_STAGING_API_KEY
