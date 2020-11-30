@@ -14,7 +14,7 @@ channel = connection.channel()
 
 channel.exchange_declare(exchange=EXAHANGE, exchange_type='topic')
 
-result = channel.queue_declare('', exclusive=True)
+result = channel.queue_declare('')
 queue_name = result.method.queue
 
 channel.queue_bind(
@@ -27,7 +27,7 @@ def callback(ch, method, properties, body):
     topic = method.routing_key
     log_msg = f"""{timestamp} Topic {topic}: {body.decode()}\n"""
     print(log_msg)
-    with open('/usr/data/log.txt','a') as f:
+    with open('/data/app/log.txt','a') as f:
         f.write(log_msg)
     
 
@@ -36,7 +36,7 @@ channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 #removing old entry
-if os.path.exists('/usr/data/log.txt'):
-	os.remove('/usr/data/log.txt')
+if os.path.exists('/data/app/log.txt'):
+	os.remove('/data/app/log.txt')
 
 channel.start_consuming()

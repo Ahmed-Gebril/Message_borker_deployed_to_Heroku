@@ -10,7 +10,7 @@ redis_client =  redis.Redis(host='172.19.0.1', port=6379, decode_responses=True)
 
 @api.route('/api/messages',methods=['GET'])
 def get_messages():
-	response = requests.get('http://172.19.0.1:8080')
+	response = requests.get('http://172.19.0.1:8080/')
 	return response.content,response.status_code,response.headers.items()
 
 @api.route('/api/state',methods=['PUT'])

@@ -110,7 +110,7 @@ def send_message():
                 #continue to listen for state change
                 continue
             else:
-                #exit app if state is other than INIT,RUNING or PAUSED
+                #exit app if state is other than INIT,RUNING or PAUSED, in other words 'STOP'
                 break
         #for message flood control
         time.sleep(3)
