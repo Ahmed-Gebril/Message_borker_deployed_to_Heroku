@@ -67,22 +67,3 @@ def test_get_run_log_endpoint(test_client):
            b'PAUSED' in response.data or b'STOPPED' in response.data or \
            b'' in response.data
 
-def test_node_statistic_endpoint(test_client):
-    """
-        Checks for a 200 status code along with necessary keys for a valid json response.
-    """
-    response = test_client.get('/api/node-statistic')
-    assert response.status_code == 200
-    response_json = json.loads(response.data.decode())
-    assert set(['disk_free','fd_used','os_pid','node_type','uptime']) == set(response_json)
-
-def test_queue_statistic_endpoint(test_client):
-    """
-        Checks for a 200 status code along with necessary keys for a valid json response.
-    """
-    response = test_client.get('/api/queue-statistic')
-    print(json.loads(response.data.decode()))
-    assert response.status_code == 200
-    response_json = json.loads(response.data.decode())
-    for queue in response_json:
-        assert set(['message_delivery_rate','message_publish_rate','delivered_message','published_message','queue_name']) == set(queue.keys())
