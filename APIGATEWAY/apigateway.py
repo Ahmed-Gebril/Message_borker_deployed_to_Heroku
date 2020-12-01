@@ -1,4 +1,4 @@
-from flask import Flask,request,jsonify
+from flask import Flask, request, jsonify
 import os
 import requests
 import redis
@@ -11,7 +11,7 @@ redis_client =  redis.Redis(host='host.docker.internal', port=6379, decode_respo
 @api.route('/api/messages',methods=['GET'])
 def get_messages():
 	response = requests.get('http://host.docker.internal:8080/')
-	return response.content,response.status_code,response.headers.items()
+	return response.content, response.status_code, response.headers.items()
 
 @api.route('/api/state',methods=['PUT'])
 def put_state():
