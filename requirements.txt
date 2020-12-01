@@ -1,0 +1,7 @@
+#helps heroku detect that the application is based on python
+
+flask==1.1.2
+gunicorn==20.0.4
+requests==2.25.0
+redis==3.5.3
+pytest==6.1.2
