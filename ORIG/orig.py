@@ -3,6 +3,7 @@ import time
 import redis
 import json
 import datetime
+import subprocess
 
 TOPIC_TX = 'my.o'
 EXAHANGE ='layered_topic_exchange'
@@ -110,8 +111,12 @@ def send_message():
                 #continue to listen for state change
                 continue
             else:
-                #exit app if state is other than INIT,RUNING or PAUSED, in other words 'STOP'
-                break
+				#exit app if state is other than INIT,RUNING or PAUSED, in other words 'STOP' a docker-compose command is run.
+				with open("/tmp/output.log", "a") as output:
+					subprocess.call("docker-compose down", shell=True, stdout=output, stderr=output)
+
+                
+         
         #for message flood control
         time.sleep(3)
 
