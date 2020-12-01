@@ -21,16 +21,13 @@ build:
         - docker image  prune -f
         - docker-compose -f docker-compose.yml build --no-cache
         - docker-compose -f docker-compose.yml up -d
-        - cd APIGATEWAY && gunicorn --bind 0.0.0.0:8081 --timeout 120 apigateway:api &
+        - echo "The system is up and running"
  
 test:
     stage: test
     script:
         - docker-compose -f docker-compose.yml build --no-cache
         - docker-compose -f docker-compose.yml up -d
-        - cd APIGATEWAY && gunicorn --bind 0.0.0.0:8081 --timeout 120 apigateway:api &
-        - docker network inspect message-broker-deployed-to-heroku_internal_network
-        - docker ps
         - cd  tests
         - docker build -t tests .
         - docker run  --network=message-broker-deployed-to-heroku_internal_network tests
@@ -66,3 +63,4 @@ staging:
      - gem install dpl
      - apk add --no-cache ruby-json 
      - dpl --provider=heroku --app=devopsprojectwork --api-key=$HEROKU_STAGING_API_KEY
+     - echo "Deployed to Heroku"
