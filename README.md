@@ -43,7 +43,7 @@ Viewing queue statistics: http://host.docker.internal:8080/api/queue-statistic. 
 
 ## Running Unit and API tests:
 
-The tests are already run in the pipeline in the Test stage. To ensure that the tests pass locally accepted change the occurrences of ‘172.19.0.1’ and ‘host.docker.internal’ to ‘localhost.’
+
 ```
 -	Run the command ‘pytest.’
 
