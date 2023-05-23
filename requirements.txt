@@ -2,6 +2,6 @@
 
 flask==1.1.2
 gunicorn==20.0.4
-requests==2.25.0
+requests==2.31.0
 redis==3.5.3
 pytest==6.1.2
